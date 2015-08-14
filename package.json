@@ -1,0 +1,17 @@
+{
+  "name": "promise",
+  "version": "1.0.0",
+  "description": "",
+  "main": "promise.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "keywords": [
+    "promise/A+"
+  ],
+  "author": "j1anb1n",
+  "license": "MIT",
+  "devDependencies": {
+    "promises-aplus-tests": "^2.1.1"
+  }
+}
