@@ -135,21 +135,22 @@ Promise.all = function (promises) {
         promises = promises.slice(promises);
 
         promises.forEach(function (promise, i) {
-            promise.then(
-                function (result) {
-                    results[i] = result;
-                    done ++;
+            Promise.resolve(promise)
+                .then(
+                    function (result) {
+                        results[i] = result;
+                        done ++;
 
-                    if (done === promises.length) {
-                        res(results);
+                        if (done === promises.length) {
+                            res(results);
+                        }
+                    },
+                    function (result) {
+                        results[i] = result;
+
+                        rej(result);
                     }
-                },
-                function (result) {
-                    results[i] = result;
-
-                    rej(result);
-                }
-            );
+                );
         });
     });
 };
@@ -159,7 +160,8 @@ Promise.race = function (promises) {
         promises = promises.slice(promises);
 
         promises.forEach(function (promise) {
-            promise.then(res, rej);
+            Promise.resolve(promise)
+                .then(res, rej);
         });
     });
 };
