@@ -1,7 +1,6 @@
 var PENDING = 0;
 var DONE    = 1;
 var FAIL    = -1;
-var guid    = 0;
 function isThenable (obj) {
     return (typeof obj === 'object' || typeof obj === 'function') && obj && 'then' in obj;
 }
@@ -23,7 +22,6 @@ function Promise (fn) {
     var called = false;
     this.state = PENDING;
     this.callbacks = [[], []];
-    this.guid = guid ++;
     function resolve (result) {
         var resultThenIsFunction = false;
         if (result === self) {
@@ -125,8 +123,6 @@ function Promise (fn) {
 }
 
 module.exports = Promise;
-
-Promise.length = 1;
 
 Promise.all = function (promises) {
     return new Promise(function (res, rej) {
